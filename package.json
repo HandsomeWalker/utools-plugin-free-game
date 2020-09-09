@@ -1,0 +1,17 @@
+{
+  "name": "epic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build.js & parcel build cheerio.js --no-source-maps --no-cache"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
+}

@@ -1,0 +1,16 @@
+{
+	"pluginName": "免费游戏信息",
+	"description": "epic/psn免费游戏信息",
+	"author": "HandsomeWalker",
+	"main": "index.html",
+	"version": "1.0.0",
+	"logo": "logo.png",
+	"preload": "preload.js",
+	"features": [
+		{
+		  "code": "game",
+		  "explain": "epic/psn免费游戏信息",
+			"cmds":["game", "free", "白嫖", "游戏"]
+		}
+	]
+}
