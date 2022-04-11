@@ -1,6 +1,6 @@
 {
-	"pluginName": "免费游戏信息",
-	"description": "epic/psn免费游戏信息",
+	"pluginName": "Epic白嫖助手",
+	"description": "Epic游戏白嫖助手，目前仅提供周免游戏查看功能",
 	"author": "HandsomeWalker",
 	"main": "index.html",
 	"version": "1.0.0",
@@ -8,9 +8,9 @@
 	"preload": "preload.js",
 	"features": [
 		{
-		  "code": "game",
-		  "explain": "epic/psn免费游戏信息",
-			"cmds":["game", "free", "白嫖", "游戏"]
+		  "code": "epic",
+		  "explain": "Epic游戏白嫖助手，目前仅提供周免游戏查看功能",
+			"cmds":["epic"]
 		}
 	]
 }

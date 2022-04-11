@@ -3,7 +3,7 @@ const Path = require('path');
 const fs = require('fs');
 
 function copyFiles(files) {
-  files.forEach(file => fs.writeFileSync(`dist/${file}`, fs.readFileSync(file)));
+  files.forEach(file => fs.writeFileSync(`dist/${file.replace(/src\//g, '')}`, fs.readFileSync(file)));
   console.log('copy file done');
 }
 // 单个入口文件路径
@@ -27,7 +27,7 @@ const options = {
   minify: true, // 压缩文件，当 process.env.NODE_ENV === 'production' 时，会启用
   scopeHoist: false, // 打开实验性的scope hoisting/tree shaking用来缩小生产环境的包。
   target: 'browser', // browser/node/electron, 默认为 browser
-  bundleNodeModules: false, // 当package.json的'target'设置'node' or 'electron'时，相应的依赖不会加入bundle中。设置true将被包含。
+  bundleNodeModules: true, // 当package.json的'target'设置'node' or 'electron'时，相应的依赖不会加入bundle中。设置true将被包含。
   logLevel: 3,
   /**
    * 5 = 储存每个信息
@@ -50,5 +50,5 @@ const options = {
   // 运行 bundler，这将返回主 bundle
   // 如果你正在使用监听模式，请使用下面这些事件，这是因为该 promise 只会触发一次，而不是每次重新构建时都触发
   const bundle = await bundler.bundle();
-  copyFiles(['logo.png', 'plugin.json', 'preload.js', 'README.md']);
+  copyFiles(['logo.png', 'plugin.json', 'src/preload.js', 'README.md']);
 })();

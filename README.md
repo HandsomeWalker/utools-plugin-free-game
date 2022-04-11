@@ -1,3 +1,3 @@
-随手写的一个查看EPIC免费游戏和PS4港服会免游戏的插件，别在意样式🤪，主要方便自用
+Epic游戏白嫖助手，目前仅提供周免游戏查看功能
 
 ![img](https://handsomeimg-1256187680.cos.ap-chengdu.myqcloud.com/6.png)
