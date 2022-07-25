@@ -82,8 +82,14 @@ function getData() {
       }
       const proxyGame = handsome(game);
       if (game.promotions.promotionalOffers.length) {
-        !currTimes && (currTimes = proxyGame.promotions.promotionalOffers[0].promotionalOffers[0](''));
-        currGamesHtml += getGameHtml(game);
+        currTimes = proxyGame.promotions.promotionalOffers[0].promotionalOffers[0]('');
+        if (currTimes.discountSetting) {
+          if (currTimes.discountSetting.discountPercentage === 0) {
+            currGamesHtml += getGameHtml(game);
+          }
+        } else {
+          currGamesHtml += getGameHtml(game);
+        }
         continue;
       }
       if (game.promotions.upcomingPromotionalOffers.length) {
