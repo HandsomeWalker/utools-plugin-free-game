@@ -34,6 +34,26 @@ function loading() {
 function open(url) {
   utools.shellOpenExternal(url);
 }
+
+function isInTimes(startDate, endDate) {
+  const curr = Date.now();
+  let s, e;
+  let ret = true;
+  try {
+    s = new Date(startDate).valueOf();
+    e = new Date(endDate).valueOf();
+    console.log(s, e)
+    if (curr >= s && curr <= e) {
+      ret = true;
+    } else {
+      ret = false;
+    }
+  } catch (e) {
+    ret = false;
+  }
+  return ret;
+}
+
 function getGameHtml(game) {
   let html = '';
   const { title, keyImages, description } = game;
@@ -84,17 +104,18 @@ function getData() {
       if (game.promotions.promotionalOffers.length) {
         currTimes = proxyGame.promotions.promotionalOffers[0].promotionalOffers[0]('');
         if (currTimes.discountSetting) {
-          if (currTimes.discountSetting.discountPercentage === 0) {
+          if (currTimes.discountSetting.discountPercentage === 0 && isInTimes(currTimes.startDate, currTimes.endDate)) {
             currGamesHtml += getGameHtml(game);
           }
-        } else {
-          currGamesHtml += getGameHtml(game);
         }
-        continue;
       }
       if (game.promotions.upcomingPromotionalOffers.length) {
         !upcomingTimes && (upcomingTimes = proxyGame.promotions.upcomingPromotionalOffers[0].promotionalOffers[0](''));
-        upcomingGamesHtml += getGameHtml(game);
+        if (upcomingTimes.discountSetting) {
+          if (upcomingTimes.discountSetting.discountPercentage === 0) {
+            upcomingGamesHtml += getGameHtml(game);
+          }
+        }
       }
     }
     let html = `<h2 class="title">当前免费${time2String(currTimes, 'curr')} - <a id="epic-url" href="">去官网领取</a></h2><div class="flex-box">`;
