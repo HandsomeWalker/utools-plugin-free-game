@@ -54,6 +54,16 @@ function isInTimes(startDate, endDate) {
   return ret;
 }
 
+function autoSetBtnStatus(btn, currTimes, piao) {
+  if (piao.time === currTimes.endDate && piao.is) {
+    btn.className = "pure-button green";
+    btn.innerText = "已领";
+  } else {
+    btn.className = "pure-button gray";
+    btn.innerText = "没领";
+  }
+}
+
 function getGameHtml(game) {
   let html = '';
   const { title, keyImages, description } = game;
@@ -118,13 +128,29 @@ function getData() {
         }
       }
     }
-    let html = `<h2 class="title">当前免费${time2String(currTimes, 'curr')} - <a id="epic-url" href="">去官网领取</a></h2><div class="flex-box">`;
+    let html = `<h2 class="title">当前免费${time2String(currTimes, 'curr')} - <a id="epic-url" href="">去官网领取</a><button id="btn" class="pure-button gray">没领</button></h2><div class="flex-box">`;
     html += currGamesHtml;
     html += `</div><h2 class="title">即将免费${time2String(upcomingTimes, 'upcoming')}</h2><div class="flex-box">`;
     html += upcomingGamesHtml;
     document.body.innerHTML = html + '</div>';
     document.body.style.backgroundColor = "#ffffff";
+    if (!utools.dbStorage.getItem('piao')) {
+      utools.dbStorage.setItem('piao', {is: false, time: currTimes.endDate});
+    }
     setTimeout(function () {
+      const btn = document.querySelector("#btn");
+      autoSetBtnStatus(btn, currTimes, utools.dbStorage.getItem('piao'));
+      btn.addEventListener("click", function() {
+        if (this.innerText === '没领') {
+          this.className = "pure-button green";
+          this.innerText = "已领";
+          utools.dbStorage.setItem('piao', {is: true, time: currTimes.endDate});
+        } else {
+          this.className = "pure-button gray";
+          this.innerText = "没领";
+          utools.dbStorage.setItem('piao', {is: false, time: currTimes.endDate});
+        }
+      });
       document.querySelector("#epic-url").addEventListener("click", open.bind(null, EPIC_URL));
       document.querySelectorAll('.item').forEach(item => {
         item.addEventListener("click", open.bind(null, item.dataset.url));
